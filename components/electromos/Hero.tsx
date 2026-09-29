@@ -60,7 +60,7 @@ export default function Hero() {
             <Logo />
           </a>
 
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden xl:flex items-center gap-8">
             {NAV.map((item) => (
               <a key={item.href} href={item.href} className="text-[15px] font-medium text-white/70 hover:text-white transition-colors relative group">
                 {item.label}
@@ -90,7 +90,7 @@ export default function Hero() {
             <a href={PHONE_HREF} aria-label="Позвонить" className="sm:hidden w-10 h-10 rounded-full bg-volt flex items-center justify-center">
               <Phone className="w-4.5 h-4.5 text-ink" style={{ width: 18, height: 18 }} />
             </a>
-            <button onClick={() => setMenu(true)} aria-label="Меню" className="lg:hidden w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">
+            <button onClick={() => setMenu(true)} aria-label="Меню" className="xl:hidden w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">
               <Menu className="w-5 h-5" />
             </button>
           </div>
