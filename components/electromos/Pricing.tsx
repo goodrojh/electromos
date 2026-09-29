@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Check, ArrowUpRight } from "lucide-react";
 import { useLead } from "./LeadModal";
-import { img } from "./site";
+import Pic from "./Pic";
 
 const plans = [
   {
     name: "Мелкий ремонт",
-    tagline: "Когда нужно «просто починить».",
+    tagline: "Ремонт и установка отдельных точек.",
     price: "1 500 ₽",
     unit: "/ВЫЕЗД С РАБОТОЙ",
     isPopular: false,
@@ -17,7 +17,7 @@ const plans = [
   },
   {
     name: "Комната",
-    tagline: "Обновить электрику в одной комнате.",
+    tagline: "Замена электрики в одном помещении.",
     price: "15 000 ₽",
     unit: "/ПОД КЛЮЧ",
     isPopular: true,
@@ -51,27 +51,27 @@ export default function Pricing() {
   return (
     <section id="pricing" className="w-full py-20 md:py-24 bg-white overflow-hidden relative">
       <div className="text-center px-5 mb-10 relative z-10">
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
           className="font-display font-bold text-[32px] md:text-[48px] text-ink leading-[1.04] tracking-tight"
         >
-          Понятные цены. Честные сроки.
-        </motion.h2>
-        <motion.p
+          Стоимость работ
+        </m.h2>
+        <m.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.1 }}
           className="mt-4 text-sm md:text-base text-muted"
         >
-          Выберите формат — точную сумму зафиксируем в договоре до начала работ.
-        </motion.p>
+          Итоговая стоимость фиксируется в договоре до начала работ.
+        </m.p>
       </div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -79,14 +79,14 @@ export default function Pricing() {
         className="mx-3 md:mx-10 lg:mx-auto max-w-[1300px] relative rounded-[24px] overflow-hidden bg-ink"
       >
         <div className="absolute inset-0 z-0">
-          <img src={img("cables.jpg")} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <Pic name="cables" alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-ink/30" />
         </div>
 
-        <div className="relative z-10 bg-white/55 backdrop-blur-xl m-3 md:m-[40px] rounded-[16px] overflow-hidden border border-white/20">
+        <div className="relative z-10 bg-white/85 md:bg-white/60 md:backdrop-blur-lg m-3 md:m-[40px] rounded-[16px] overflow-hidden border border-white/20">
           <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-black/10">
             {plans.map((plan, idx) => (
-              <motion.div
+              <m.div
                 key={plan.name}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export default function Pricing() {
                     <h3 className="font-display font-bold text-2xl text-ink">{plan.name}</h3>
                     {plan.isPopular && (
                       <span className="inline-flex items-center px-3 py-1 text-[10px] font-bold tracking-[0.12em] uppercase bg-volt text-ink rounded-full">
-                        ЧАЩЕ ВСЕГО
+                        ПОПУЛЯРНОЕ
                       </span>
                     )}
                   </div>
@@ -116,7 +116,7 @@ export default function Pricing() {
                       open({
                         source: "plan:" + plan.name,
                         title: plan.cta,
-                        subtitle: `Пакет «${plan.name}» — от ${plan.price}. Перезвоним, уточним объём и назовём итоговую сумму.`,
+                        subtitle: `Пакет «${plan.name}» — от ${plan.price}. Специалист уточнит объём и согласует итоговую стоимость.`,
                         summary: `Пакет: ${plan.name} (от ${plan.price} ${plan.unit.toLowerCase().replace("/", "")})`,
                         askTime: true,
                         button: plan.cta,
@@ -144,11 +144,11 @@ export default function Pricing() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

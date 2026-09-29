@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { X, Phone, Check, Zap, ShieldCheck, Clock } from "lucide-react";
 import { PHONE_DISPLAY, PHONE_HREF } from "./site";
 
@@ -108,14 +108,14 @@ function LeadModal({ config, onClose }: { config: LeadConfig; onClose: () => voi
   const isRed = config.accent === "red";
 
   return (
-    <motion.div
+    <m.div
       className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="absolute inset-0 bg-ink/70 backdrop-blur-md" onClick={onClose} />
-      <motion.div
+      <div className="absolute inset-0 bg-ink/80" onClick={onClose} />
+      <m.div
         role="dialog"
         aria-modal="true"
         initial={{ y: 60, opacity: 0, scale: 0.98 }}
@@ -126,7 +126,7 @@ function LeadModal({ config, onClose }: { config: LeadConfig; onClose: () => voi
       >
         {/* Header strip */}
         <div className={"relative overflow-hidden px-6 sm:px-8 pt-7 pb-6 " + (isRed ? "bg-[#1a0b0b]" : "bg-ink")}>
-          <div className={"absolute -top-20 -right-16 w-64 h-64 rounded-full blur-[70px] " + (isRed ? "bg-red-500/40" : "bg-volt/30")} />
+          <div className={"absolute -top-20 -right-16 w-64 h-64 rounded-full " + (isRed ? "bg-[radial-gradient(closest-side,rgba(239,68,68,0.45),transparent)]" : "bg-[radial-gradient(closest-side,rgba(255,198,26,0.35),transparent)]")} />
           <button
             onClick={onClose}
             aria-label="Закрыть"
@@ -135,11 +135,8 @@ function LeadModal({ config, onClose }: { config: LeadConfig; onClose: () => voi
             <X className="w-5 h-5" />
           </button>
           <div className="relative flex items-center gap-2 mb-3">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className={"animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 " + (isRed ? "bg-red-400" : "bg-emerald-400")} />
-              <span className={"relative inline-flex rounded-full h-2.5 w-2.5 " + (isRed ? "bg-red-500" : "bg-emerald-400")} />
-            </span>
-            <span className="text-[12px] font-medium text-white/70">Мастера на линии · ответим за 5 минут</span>
+            <span className={"inline-flex rounded-full h-2 w-2 " + (isRed ? "bg-red-500" : "bg-volt")} />
+            <span className="text-[12px] font-medium text-white/70">Перезвоним в течение 5 минут</span>
           </div>
           <h3 className="relative font-display font-bold text-[24px] sm:text-[28px] leading-[1.1] text-white pr-10">{config.title}</h3>
           {config.subtitle && <p className="relative mt-2 text-[14px] text-white/65 leading-relaxed">{config.subtitle}</p>}
@@ -147,28 +144,28 @@ function LeadModal({ config, onClose }: { config: LeadConfig; onClose: () => voi
 
         <AnimatePresence mode="wait">
           {state === "done" ? (
-            <motion.div key="done" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="px-6 sm:px-8 py-10 text-center">
-              <motion.div
+            <m.div key="done" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="px-6 sm:px-8 py-10 text-center">
+              <m.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", delay: 0.1 }}
                 className="mx-auto w-20 h-20 rounded-full bg-volt flex items-center justify-center shadow-[0_0_60px_rgba(255,198,26,0.6)]"
               >
                 <Check className="w-10 h-10 text-ink stroke-[3]" />
-              </motion.div>
-              <h4 className="mt-6 font-display font-bold text-2xl text-ink">Заявка принята!</h4>
+              </m.div>
+              <h4 className="mt-6 font-display font-bold text-2xl text-ink">Заявка принята</h4>
               <p className="mt-2 text-[15px] text-gray-500 max-w-[340px] mx-auto">
-                {name ? name + ", мастер" : "Мастер"} перезвонит вам в течение 5 минут и назовёт точную стоимость.
+                {name ? name + ", специалист" : "Специалист"} перезвонит вам в течение 5 минут и согласует стоимость работ.
               </p>
               <a href={PHONE_HREF} className="mt-6 inline-flex items-center gap-2 text-[15px] font-semibold text-ink underline decoration-volt decoration-2 underline-offset-4">
-                <Phone className="w-4 h-4" /> Не хотите ждать? {PHONE_DISPLAY}
+                <Phone className="w-4 h-4" /> Телефон: {PHONE_DISPLAY}
               </a>
               <button onClick={onClose} className="mt-8 w-full rounded-full py-4 bg-ink text-white font-semibold hover:bg-steel transition-colors">
                 Хорошо
               </button>
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.form key="form" onSubmit={submit} className="px-6 sm:px-8 py-6 flex flex-col gap-4">
+            <m.form key="form" onSubmit={submit} className="px-6 sm:px-8 py-6 flex flex-col gap-4">
               {config.summary && (
                 <div className="rounded-2xl bg-volt-soft border border-volt/40 p-4 text-[13px] text-ink whitespace-pre-line leading-relaxed">
                   {config.summary}
@@ -259,18 +256,14 @@ function LeadModal({ config, onClose }: { config: LeadConfig; onClose: () => voi
                   (isRed ? "bg-red-500 text-white" : "bg-volt text-ink shadow-[0_10px_40px_-10px_rgba(255,198,26,0.8)]")
                 }
               >
-                <motion.span
-                  animate={{ x: ["-120%", "220%"] }}
-                  transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/50 to-transparent -skew-x-12"
-                />
+                <span className="shimmer" aria-hidden />
                 <Zap className="w-5 h-5 relative" />
-                <span className="relative">{state === "sending" ? "Отправляем…" : config.button || "Жду звонка мастера"}</span>
+                <span className="relative">{state === "sending" ? "Отправляем…" : config.button || "Отправить заявку"}</span>
               </button>
 
               <label className="flex items-start gap-2.5 text-[12px] text-gray-500 leading-snug cursor-pointer">
                 <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-0.5 accent-ink w-4 h-4 shrink-0" />
-                Согласен на обработку персональных данных в соответствии с политикой конфиденциальности
+                Даю согласие на обработку персональных данных в соответствии с политикой конфиденциальности
               </label>
 
               <div className="flex items-center justify-between gap-3 pt-3 border-t border-gray-100 text-[12px] text-gray-500">
@@ -280,10 +273,10 @@ function LeadModal({ config, onClose }: { config: LeadConfig; onClose: () => voi
               <a href={PHONE_HREF} className="text-center text-[14px] font-semibold text-ink">
                 или позвоните: <span className="underline decoration-volt decoration-2 underline-offset-4">{PHONE_DISPLAY}</span>
               </a>
-            </motion.form>
+            </m.form>
           )}
         </AnimatePresence>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

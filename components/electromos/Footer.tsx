@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Phone, MapPin, Clock, Send, MessageCircle } from "lucide-react";
 import { useLead } from "./LeadModal";
 import { Logo } from "./Hero";
-import { ADDRESS, PHONE_DISPLAY, PHONE_HREF, TELEGRAM_HREF, WHATSAPP_HREF, img } from "./site";
+import { ADDRESS, PHONE_DISPLAY, PHONE_HREF, TELEGRAM_HREF, WHATSAPP_HREF } from "./site";
+import Pic from "./Pic";
 
 export default function Footer() {
   const { open } = useLead();
@@ -12,27 +13,27 @@ export default function Footer() {
   return (
     <footer className="w-full bg-white pb-20 md:pb-0">
       <div className="m-2 rounded-[24px] overflow-hidden relative min-h-[100svh] md:min-h-[820px] flex flex-col">
-        <img src={img("moscow.jpg")} alt="Вечерняя Москва" className="absolute inset-0 w-full h-full object-cover" />
+        <Pic name="moscow" alt="Вечерняя Москва" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/30 to-ink/80" />
 
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-5 md:px-20 pt-20 pb-10 text-center">
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="font-display text-[44px] md:text-[84px] font-extrabold text-white leading-[0.98] tracking-[-0.03em]"
+            className="font-display text-[40px] md:text-[76px] font-bold text-white leading-[0.98] tracking-[-0.03em]"
           >
-            Свет будет. <br />
-            <span className="text-volt">Просто позвоните.</span>
-          </motion.h2>
+            Электрик на дом <br />
+            <span className="text-volt">по Москве</span>
+          </m.h2>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-10 w-full max-w-[560px] bg-white/15 backdrop-blur-md rounded-[32px] sm:rounded-full border border-white/25 flex flex-col sm:flex-row overflow-hidden p-1.5 gap-1.5"
+            className="mt-10 w-full max-w-[560px] bg-ink/50 rounded-[32px] sm:rounded-full border border-white/25 flex flex-col sm:flex-row overflow-hidden p-1.5 gap-1.5"
           >
             <a href={PHONE_HREF} className="flex-1 flex items-center justify-center gap-3 px-4 sm:px-6 py-4 text-white font-display font-bold text-lg sm:text-xl whitespace-nowrap">
               <Phone className="w-5 h-5 text-volt" /> {PHONE_DISPLAY}
@@ -41,8 +42,8 @@ export default function Footer() {
               onClick={() =>
                 open({
                   source: "footer",
-                  title: "Перезвоним за 5 минут",
-                  subtitle: "Оставьте номер — электрик свяжется с вами и ответит на все вопросы.",
+                  title: "Обратный звонок",
+                  subtitle: "Оставьте номер телефона — специалист перезвонит в течение 5 минут.",
                   askTime: true,
                   button: "Перезвоните мне",
                 })
@@ -51,15 +52,15 @@ export default function Footer() {
             >
               Перезвоните мне
             </button>
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="relative z-10 bg-ink/40 backdrop-blur-2xl border border-white/15 rounded-[24px] mx-3 md:mx-5 mb-3 md:mb-5 p-6 md:p-10"
+          className="relative z-10 bg-ink/80 md:bg-ink/60 md:backdrop-blur-xl border border-white/15 rounded-[24px] mx-3 md:mx-5 mb-3 md:mb-5 p-6 md:p-10"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr_1.2fr] gap-8 md:gap-10">
             <div>
@@ -123,7 +124,7 @@ export default function Footer() {
               ООО «Электромонтаж» · ИНН 4346445471 · ОГРН 1164350065354 · © {new Date().getFullYear()}
             </p>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </footer>
   );

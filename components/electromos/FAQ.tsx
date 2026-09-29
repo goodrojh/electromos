@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Plus, X, Wallet, Car, ShieldCheck } from "lucide-react";
 import { useLead } from "./LeadModal";
-import { img } from "./site";
+import Pic from "./Pic";
 
 type FAQItem = { question: string; answer: string };
 
@@ -43,10 +43,10 @@ export default function FAQ() {
       <div className="max-w-[780px] mx-auto">
         <div className="text-center mb-10">
           <h2 className="font-display text-[32px] md:text-[48px] font-bold text-ink leading-tight mb-3">Частые вопросы</h2>
-          <p className="text-[16px] text-muted">Отвечаем честно — до того, как вы позвоните</p>
+          <p className="text-[16px] text-muted">Стоимость, выезд и гарантийные обязательства</p>
         </div>
 
-        <div className="flex justify-center gap-2 border-b border-[#efefee] mb-8 overflow-x-auto">
+        <div className="flex justify-start sm:justify-center gap-1 sm:gap-2 border-b border-[#efefee] mb-8 overflow-x-auto no-scrollbar">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -76,7 +76,7 @@ export default function FAQ() {
               </button>
               <AnimatePresence initial={false}>
                 {openIndex === index && (
-                  <motion.div
+                  <m.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -84,7 +84,7 @@ export default function FAQ() {
                     className="overflow-hidden"
                   >
                     <div className="pt-3 pb-1 text-[15px] text-[#5f5e5f] leading-[1.7]">{item.answer}</div>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
@@ -93,18 +93,18 @@ export default function FAQ() {
 
         <div className="mt-12 bg-paper rounded-[18px] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center">
-            <img src={img("master.jpg")} alt="" className="w-[52px] h-[52px] rounded-full border-2 border-white object-cover object-top" />
+            <Pic name="master" alt="" sizes="52px" className="w-[52px] h-[52px] rounded-full border-2 border-white object-cover object-top" />
             <div className="ml-4">
               <p className="font-semibold text-[15px] text-ink">Остались вопросы?</p>
-              <p className="text-[14px] text-muted">Мастер ответит по телефону — бесплатно</p>
+              <p className="text-[14px] text-muted">Бесплатная консультация специалиста по телефону</p>
             </div>
           </div>
           <button
             onClick={() =>
               open({
                 source: "faq",
-                title: "Ваш вопрос электрику",
-                subtitle: "Напишите вопрос в комментарии — мастер перезвонит и ответит.",
+                title: "Вопрос специалисту",
+                subtitle: "Укажите вопрос в комментарии — специалист перезвонит и ответит.",
                 button: "Задать вопрос",
               })
             }

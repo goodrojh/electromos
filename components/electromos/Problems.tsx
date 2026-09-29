@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { PowerOff, Flame, Plug, Lamp, ToggleRight, Cable, ArrowUpRight, Gauge } from "lucide-react";
 import { useLead } from "./LeadModal";
 
@@ -22,14 +22,14 @@ export default function Problems() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <h2 className="font-display font-bold text-3xl md:text-[44px] leading-[1.05] text-white">
-            Что случилось?
-            <span className="block text-white/40 font-medium text-xl md:text-2xl mt-2">Нажмите — и мастер перезвонит именно по вашей задаче</span>
+            Выберите задачу
+            <span className="block text-white/45 font-sans font-medium text-base md:text-lg mt-3">Укажите тип работ — специалист перезвонит и сориентирует по стоимости</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {problems.map((p, i) => (
-            <motion.button
+            <m.button
               key={p.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -41,11 +41,11 @@ export default function Problems() {
                   source: "problem:" + p.title,
                   title: p.urgent ? "Срочно: " + p.title.toLowerCase() : p.title,
                   subtitle: p.urgent
-                    ? "Не трогайте щиток и проводку. Оставьте номер — перезвоним за 2–5 минут и отправим ближайшего мастера."
-                    : "Мастер перезвонит, уточнит детали и назовёт точную цену ещё до выезда.",
+                    ? "Не прикасайтесь к щитку и проводке до приезда специалиста. Перезвоним в течение 5 минут."
+                    : "Специалист перезвонит, уточнит детали и согласует стоимость до выезда.",
                   accent: p.urgent ? "red" : "volt",
                   askTime: !p.urgent,
-                  button: p.urgent ? "Нужен мастер срочно" : "Узнать цену и время",
+                  button: p.urgent ? "Срочный вызов" : "Узнать стоимость",
                   summary: "Задача: " + p.title,
                 })
               }
@@ -73,10 +73,10 @@ export default function Problems() {
               </div>
               <h3 className="mt-6 font-display font-semibold text-[17px] text-white leading-snug">{p.title}</h3>
               <p className="mt-1 text-[13px] text-white/45">{p.hint}</p>
-            </motion.button>
+            </m.button>
           ))}
 
-          <motion.button
+          <m.button
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -84,19 +84,19 @@ export default function Problems() {
             onClick={() =>
               open({
                 source: "problem:other",
-                title: "Опишите задачу — подскажем бесплатно",
-                subtitle: "Консультация по телефону ни к чему не обязывает. Иногда проблему можно решить без выезда.",
+                title: "Консультация специалиста",
+                subtitle: "Опишите задачу в комментарии — специалист перезвонит и проконсультирует бесплатно.",
                 button: "Получить консультацию",
               })
             }
             className="text-left rounded-[24px] p-5 bg-volt text-ink flex flex-col justify-between min-h-[160px] hover:shadow-[0_0_50px_-10px_rgba(255,198,26,0.8)] transition-shadow"
           >
-            <span className="text-[13px] font-semibold opacity-70">Не нашли свою задачу?</span>
+            <span className="text-[13px] font-semibold opacity-70">Другая задача</span>
             <span className="font-display font-bold text-xl leading-tight flex items-end justify-between gap-2">
-              Бесплатная консультация
+              Консультация специалиста
               <ArrowUpRight className="w-6 h-6 shrink-0" />
             </span>
-          </motion.button>
+          </m.button>
         </div>
       </div>
     </section>

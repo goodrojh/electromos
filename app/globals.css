@@ -5,3 +5,43 @@
 html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
 body { background: #0A0B0D; color: #0A0B0D; overflow-x: hidden; }
 ::selection { background: #FFC61A; color: #0A0B0D; }
+img { -webkit-user-drag: none; }
+
+.no-scrollbar { scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Hero photo: one short zoom-out on load, GPU only */
+@keyframes hero-zoom { from { transform: scale(1.08); } to { transform: scale(1); } }
+.animate-hero-zoom { animation: hero-zoom 2.4s cubic-bezier(.2,.7,.2,1) both; }
+
+/* Light sweep over primary buttons */
+@keyframes shimmer { from { transform: translateX(-120%) skewX(-12deg); } to { transform: translateX(320%) skewX(-12deg); } }
+.shimmer {
+  position: absolute; top: 0; bottom: 0; left: 0; width: 33%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+  animation: shimmer 3s linear infinite; pointer-events: none; will-change: transform;
+}
+
+/* Gentle float for decorative icons */
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-slow { animation: float 7s ease-in-out 1s infinite reverse; }
+
+/* Services marquee: CSS-only on devices with a mouse, native swipe on touch */
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (hover: hover) and (min-width: 768px) {
+  .marquee-track { animation: marquee 60s linear infinite; will-change: transform; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
+@media (hover: none), (max-width: 767px) {
+  .marquee-track { scroll-snap-type: x mandatory; }
+  .marquee { scroll-snap-type: x proximity; }
+  .marquee-track > * { scroll-snap-align: start; }
+}
+
+/* Skip rendering work for off-screen sections */
+.cv-auto { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Minus, Plus, Lock, Calculator as CalcIcon, Plug, Lamp, Lightbulb, ToggleLeft, ShieldAlert, Gauge, LayoutGrid, Cable, CookingPot, Moon } from "lucide-react";
+import { m, AnimatePresence } from "framer-motion";
+import { Minus, Plus, Lock, Plug, Lamp, Lightbulb, ToggleLeft, ShieldAlert, Gauge, LayoutGrid, Cable, CookingPot, Moon } from "lucide-react";
 import { useLead } from "./LeadModal";
 import { rub } from "./site";
 
@@ -58,23 +58,20 @@ export default function Calculator() {
   return (
     <section id="calc" className="bg-ink px-5 md:px-8 py-24 md:py-32 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "48px 48px" }} />
-      <div className="absolute -top-40 right-0 w-[600px] h-[600px] bg-volt/10 rounded-full blur-[140px]" />
+      <div className="absolute -top-40 right-0 w-[600px] h-[600px] rounded-full bg-[radial-gradient(closest-side,rgba(255,198,26,0.14),transparent)]" />
 
       <div className="max-w-6xl mx-auto relative">
         <div className="mb-12 max-w-2xl">
-          <span className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.18em] text-volt mb-4">
-            <CalcIcon className="w-4 h-4" /> Калькулятор
-          </span>
           <h2 className="font-display font-bold text-[32px] md:text-5xl text-white leading-[1.08]">
-            Посчитайте цену <span className="text-volt">за 30 секунд</span>
+            Расчёт <span className="text-volt">стоимости работ</span>
           </h2>
           <p className="mt-4 text-white/55 text-base md:text-lg">
-            Отметьте, что нужно сделать. Мастер подтвердит смету по телефону — и она уже не изменится.
+            Выберите виды работ и количество. Итоговая смета согласовывается со специалистом и фиксируется в договоре.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_380px] gap-6 items-start">
-          <div className="grid sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {ITEMS.map((it) => {
               const v = qty[it.id] || 0;
               return (
@@ -85,7 +82,7 @@ export default function Calculator() {
                     (v > 0 ? "bg-volt/[0.08] border-volt/40" : "bg-graphite border-white/10")
                   }
                 >
-                  <div className="flex items-center sm:items-start gap-3 min-w-0">
+                  <div className="flex items-center sm:items-start gap-3 min-w-0 flex-1">
                     <div className={"w-10 h-10 rounded-xl flex items-center justify-center shrink-0 " + (v > 0 ? "bg-volt text-ink" : "bg-white/5 text-volt")}>
                       <it.icon className="w-5 h-5" />
                     </div>
@@ -106,7 +103,7 @@ export default function Calculator() {
           </div>
 
           {/* Summary panel */}
-          <div className="lg:sticky lg:top-6 rounded-[28px] bg-white/[0.06] backdrop-blur-xl border border-white/15 p-6 shadow-2xl">
+          <div className="lg:sticky lg:top-6 rounded-[28px] bg-graphite border border-white/15 p-6 shadow-2xl">
             <button
               onClick={() => setNight(!night)}
               className="w-full flex items-center justify-between gap-3 rounded-2xl bg-white/5 border border-white/10 px-4 py-3 mb-5"
@@ -115,7 +112,7 @@ export default function Calculator() {
                 <Moon className="w-4 h-4 text-volt" /> Ночью / срочно (+30%)
               </span>
               <span className={"w-11 h-6 rounded-full p-0.5 transition-colors " + (night ? "bg-volt" : "bg-white/15")}>
-                <motion.span layout className={"block w-5 h-5 rounded-full bg-white shadow " + (night ? "ml-auto" : "")} />
+                <span className={"block w-5 h-5 rounded-full bg-white shadow transition-transform duration-200 " + (night ? "translate-x-5" : "")} />
               </span>
             </button>
 
@@ -123,7 +120,7 @@ export default function Calculator() {
               <AnimatePresence initial={false}>
                 {lines.length === 0 && <p className="text-[14px] text-white/40">Добавьте хотя бы одну работу</p>}
                 {lines.map((l) => (
-                  <motion.div
+                  <m.div
                     key={l.id}
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
@@ -134,16 +131,16 @@ export default function Calculator() {
                       {l.name} × {l.q}
                     </span>
                     <span className="text-white font-medium whitespace-nowrap">{rub(l.sum)}</span>
-                  </motion.div>
+                  </m.div>
                 ))}
               </AnimatePresence>
             </div>
 
             <div className="mt-5 pt-5 border-t border-dashed border-white/15">
               <div className="text-[13px] text-white/50">Ориентировочно</div>
-              <motion.div key={total} initial={{ opacity: 0.4, y: -6 }} animate={{ opacity: 1, y: 0 }} className="font-display font-bold text-5xl text-white tabular-nums">
+              <m.div key={total} initial={{ opacity: 0.4, y: -6 }} animate={{ opacity: 1, y: 0 }} className="font-display font-bold text-5xl text-white tabular-nums">
                 {rub(total)}
-              </motion.div>
+              </m.div>
               <div className="mt-2 text-[12px] text-white/40">Выезд и диагностика — 0 ₽ при заказе работ</div>
             </div>
 
@@ -152,8 +149,8 @@ export default function Calculator() {
               onClick={() =>
                 open({
                   source: "calculator",
-                  title: "Зафиксируем эту цену",
-                  subtitle: "Мастер перезвонит, сверит объём и закрепит смету в договоре.",
+                  title: "Согласование сметы",
+                  subtitle: "Специалист перезвонит, уточнит объём работ и зафиксирует смету в договоре.",
                   summary,
                   askTime: true,
                   button: "Зафиксировать цену",

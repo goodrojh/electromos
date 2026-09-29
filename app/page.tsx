@@ -1,4 +1,5 @@
 "use client";
+import { LazyMotion, MotionConfig, domAnimation } from "framer-motion";
 import { LeadProvider } from "../components/electromos/LeadModal";
 import Hero from "../components/electromos/Hero";
 import Problems from "../components/electromos/Problems";
@@ -16,22 +17,26 @@ import MobileBar from "../components/electromos/MobileBar";
 
 export default function Home() {
   return (
-    <LeadProvider>
-      <main className="min-h-screen overflow-x-hidden">
-        <Hero />
-        <Problems />
-        <Features />
-        <Calculator />
-        <HowItWorks />
-        <Services />
-        <Pricing />
-        <Emergency />
-        <Master />
-        <Cases />
-        <FAQ />
-        <Footer />
-      </main>
-      <MobileBar />
-    </LeadProvider>
+    <LazyMotion features={domAnimation} strict>
+      <MotionConfig reducedMotion="user">
+        <LeadProvider>
+          <main className="min-h-screen overflow-x-hidden">
+            <Hero />
+            <Problems />
+            <Features />
+            <Calculator />
+            <HowItWorks />
+            <Services />
+            <div className="cv-auto"><Pricing /></div>
+            <div className="cv-auto"><Emergency /></div>
+            <div className="cv-auto"><Master /></div>
+            <div className="cv-auto"><Cases /></div>
+            <div className="cv-auto bg-white"><FAQ /></div>
+            <Footer />
+          </main>
+          <MobileBar />
+        </LeadProvider>
+      </MotionConfig>
+    </LazyMotion>
   );
 }
